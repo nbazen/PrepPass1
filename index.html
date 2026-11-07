@@ -1318,6 +1318,7 @@ function checkPwd(){
   if(isPaid){
     document.getElementById('paidNotice').style.display = "block";
     document.getElementById('pwd').value = PASSWORD;
+    document.getElementById('pricing').scrollIntoView({behavior:'smooth', block:'center'});
   }
   // ================================================
 
