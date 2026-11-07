@@ -464,7 +464,7 @@ footer{margin-top:60px;border-top:1px solid var(--rule);padding:30px 0 46px}
     </div>
   </section>
 
-  <section class="paywall" id="pricing">
+<section class="paywall" id="pricing">
   <div class="vault">
     <div>
       <h2>Open the rest of the kit.</h2>
@@ -477,27 +477,27 @@ footer{margin-top:60px;border-top:1px solid var(--rule);padding:30px 0 46px}
       </ul>
     </div>
     <div class="vbox">
-  <div class="vprice">$5.90<small>one-time · USD · no subscription</small></div>
-  <a class="btn" 
-     href="https://pancake.waffo.ai/store/manualaid-resume-templates-hgnavn1k/product/PROD_2Zup7VOjr7PUHIjDYmBuzp?type=onetime&currency=USD&test=true"
-     style="margin-top:22px">Pay and get the password</a>
-  <div class="unlock">
-    <label for="pwd">Already bought? Enter your password</label>
-    <p style="margin:8px 0; color:#111; font-weight:500;">
-      &#10004; After checkout, your permanent unlock password: <strong>YOUR_PASSWORD</strong><br>
-      Bookmark this page to access your interview guide anytime.
-    </p>
-    <div class="pwrow">
-      <input id="pwd" type="text" autocomplete="off" spellcheck="false" placeholder="Enter your unlock password">
-      <button id="unlockBtn" type="button">Unlock</button>
-    </div>
-    <p class="pwerr" id="pwerr">That password does not match. Check the password shown on this page — and the hyphen.</p>
-    <p class="hint">Password is shown above. It is not case‑sensitive.</p>
-  </div>
-</div>
+      <div class="vprice">$5.90<small>one-time · USD · no subscription</small></div>
+      <a class="btn" data-buy style="margin-top:22px">Pay and get the password</a>
 
+      <div class="unlock">
+        <label for="pwd">Already bought? Enter your password</label>
+        <!-- 付款成功提示框，默认隐藏 -->
+        <div id="paidNotice" style="display:none; margin:8px 0; color:#111; font-weight:500; background:#e8f8e8; padding:10px; border-radius:6px;">
+          &#10004; Payment confirmed! Your permanent unlock password: <strong>INTERVIEW-2026</strong><br>
+          Bookmark this page to access your interview guide anytime.
+        </div>
+        <div class="pwrow">
+          <input id="pwd" type="text" autocomplete="off" spellcheck="false" placeholder="Enter your unlock password">
+          <button id="unlockBtn" type="button">Unlock</button>
+        </div>
+        <p class="pwerr" id="pwerr" style="display:none;">That password does not match. Check the password shown on this page — and the hyphen.</p>
+        <p class="hint">Password is not case‑sensitive.</p>
+      </div>
+    </div>
   </div>
 </section>
+
 
 
   <article id="guide">
@@ -1277,7 +1277,7 @@ footer{margin-top:60px;border-top:1px solid var(--rule);padding:30px 0 46px}
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-var CHECKOUT_URL = "REPLACE_WITH_YOUR_WAFFO_CHECKOUT_URL";
+var CHECKOUT_URL = "https://pancake.waffo.ai/store/manualaid-resume-templates-hgnavn1k/product/PROD_2Zup7VOjr7PUHIjDYmBuzp?type=onetime&currency=USD&test=true";
 var PASSWORD = "INTERVIEW-2026";
 var KEY = "preppass_access";
 
@@ -1312,6 +1312,15 @@ function checkPwd(){
 }
 
 (function(){
+  // ========== 新增：检测付款返回 ?paid=1 ==========
+  const urlParams = new URLSearchParams(window.location.search);
+  const isPaid = urlParams.get('paid') === '1';
+  if(isPaid){
+    document.getElementById('paidNotice').style.display = "block";
+    document.getElementById('pwd').value = PASSWORD;
+  }
+  // ================================================
+
   // restore access
   var stored = false;
   try { stored = localStorage.getItem(KEY) === 'yes'; } catch(e) {}
@@ -1379,3 +1388,4 @@ function checkPwd(){
 </script>
 </body>
 </html>
+
